@@ -172,8 +172,12 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const lastIndex = str.lastIndexOf(value);
+  const newStr = str.slice(lastIndex);
+  const newStr1 = newStr.replace(value, '');
+  const res = str.slice(0, lastIndex) + newStr1;
+  return res;
 }
 
 /**
@@ -444,8 +448,11 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  // let name = '';
+  const first = value.indexOf(String.fromCharCode(36));
+  const last = value.lastIndexOf(String.fromCharCode(125));
+  return value.slice(first, last);
 }
 
 /**
@@ -459,8 +466,8 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 /**
@@ -478,8 +485,9 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  const newStr = str.split(';');
+  return newStr;
 }
 
 /**
@@ -498,8 +506,17 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const prev = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_?';
+  const next = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm_?';
+  let res = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i].match(/[A-Za-z_]/gi)) {
+      const el = prev.indexOf(str[i]);
+      res += next[el];
+    }
+  }
+  return res;
 }
 
 /**
